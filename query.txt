@@ -1,0 +1,78 @@
+create table users (
+user_id int primary key,
+user_name varchar(30),
+email varchar(30) unique,
+password varchar(20)
+);
+
+create table students(
+student_id int primary key,
+user_id int,
+foreign key (user_id) references users(user_id),
+name varchar(30),
+batch varchar(20),
+phone varchar(12),
+address varchar(40),
+course varchar(20)
+);
+
+create table mentors(
+mentor_id int primary key,
+user_id int,
+foreign key (user_id) references users(user_id),
+mentor_name varchar(30),
+batch varchar(20),
+phone varchar(12),
+address varchar(40),
+designation varchar(20),
+work_exp varchar(20)
+);
+
+create table courses(
+course_id int primary key,
+course_name varchar(20),
+course_duration varchar(20),
+user_id int,
+foreign key(user_id) references users(user_id)  
+);
+
+create table topics(
+topic_id int primary key,
+topic_name varchar(20),
+descrption varchar(30),
+session_time varchar(20),
+mentor_id int,
+foreign key(mentor_id) references mentors(mentor_id) 
+);
+
+create table task(
+task_id int primary key,
+task_name varchar(20),
+task_desc varchar(30),
+task_submission varchar(30),
+topic_id int,
+foreign key(topic_id) references topics(topic_id) 
+);
+
+create table attendence (
+attendence_id int primary key,
+user_id int,
+foreign key(user_id) references users(user_id),
+topic_id int,
+foreign key(topic_id) references topics(topic_id) ,
+course_id int ,
+foreign key(course_id) references  courses(course_id),
+attendece_status varchar(10)
+);
+
+create table queries(
+query_id int primary key,
+student_id int,
+foreign key(student_id) references students(student_id) ,
+mentor_id int,
+foreign key(mentor_id) references mentors(mentor_id) ,
+topic_id int,
+foreign key(topic_id) references topics(topic_id),
+querry varchar(30),
+answer varchar(20)
+);
